@@ -1,5 +1,6 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
 from markupsafe import escape
+from .sensors import DiscreteSensor, AnalogSensor
 
 main = Blueprint('main', __name__)
 api = Blueprint('api', __name__, url_prefix='/api')
@@ -11,4 +12,11 @@ def home():
 @api.route('/sensors', methods=['GET'])
 def get_all_sensors():
     """Fetch the latest sensor data."""
-    return escape('Sensor Data')
+
+    data = {
+        'temperature': AnalogSensor('temperature').read(),
+        'humidity': AnalogSensor('humidity').read(),
+        'vibration': DiscreteSensor('vibration').read(),
+    }
+
+    return jsonify(data)
