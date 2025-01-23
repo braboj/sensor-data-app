@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, current_app
 from markupsafe import escape
 from .sensors import DiscreteSensor, AnalogSensor
 
@@ -7,7 +7,7 @@ api = Blueprint('api', __name__, url_prefix='/api')
 
 @main.route('/')
 def home():
-    return escape('Backend Home')
+    return jsonify({'secret': current_app.config['SECRET_KEY']})
 
 @api.route('/sensors', methods=['GET'])
 def get_all_sensors():
