@@ -1,22 +1,28 @@
-from flask import Blueprint, jsonify, current_app
+from flask import Blueprint, jsonify, request
 from markupsafe import escape
-from .sensors import DiscreteSensor, AnalogSensor
+from .services import SensorService
 
 main = Blueprint('main', __name__)
 api = Blueprint('api', __name__, url_prefix='/api')
 
 @main.route('/')
 def home():
-    return jsonify({'secret': current_app.config['SECRET_KEY']})
+    """Render the home page.
+
+    Example:
+        http://localhost:5000/
+    """
+
+    return escape('Backend server is running!')
 
 @api.route('/sensors', methods=['GET'])
 def get_all_sensors():
-    """Fetch the latest sensor data."""
+    """Fetch the latest sensor data.
 
-    data = {
-        'temperature': AnalogSensor('temperature').read(),
-        'humidity': AnalogSensor('humidity').read(),
-        'vibration': DiscreteSensor('vibration').read(),
-    }
+    Example:
+        http://localhost:5000/api/sensors?limit=10
+    """
 
+    limit = request.args.get('limit', default=100, type=int)
+    data = SensorService.get_sensor_data(limit)
     return jsonify(data)
