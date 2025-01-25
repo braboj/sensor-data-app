@@ -1,6 +1,8 @@
 import random
 from abc import abstractmethod, ABC
 
+from backend.app.errors import BackendError
+
 
 class _SensorAbc(ABC):
     """Abstract class for sensors."""
@@ -8,19 +10,31 @@ class _SensorAbc(ABC):
     @property
     @abstractmethod
     def tag(self):
-        """The tag name of the sensor."""
+        """The tag name of the sensor.
+
+        Returns:
+            str: The tag name of the sensor.
+        """
         raise NotImplementedError
 
     @property
     @abstractmethod
     def low_limit(self):
-        """The low limit of the sensor."""
+        """The low limit of the sensor.
+
+        Returns:
+            int | float: The low limit of the sensor.
+        """
         raise NotImplementedError
 
     @property
     @abstractmethod
     def high_limit(self):
-        """The high limit of the sensor."""
+        """The high limit of the sensor.
+
+        Returns:
+            int | float: The high limit of the sensor.
+        """
         raise NotImplementedError
 
     @abstractmethod
@@ -30,6 +44,11 @@ class _SensorAbc(ABC):
         Returns:
             int | float: The sensor data.
         """
+        raise NotImplementedError
+
+    @abstractmethod
+    def validate(self):
+        """Validate the sensor instance."""
         raise NotImplementedError
 
 
@@ -42,6 +61,13 @@ class _SensorBase(object):
         self._tag = tag
         self._low_limit = low_limit
         self._high_limit = high_limit
+        self._last_value = None
+
+    def __str__(self):
+        return f"{self.tag}: {self._last_value}"
+
+    def __repr__(self):
+        return str(self)
 
     @property
     def tag(self):
@@ -58,58 +84,96 @@ class _SensorBase(object):
         """The high limit of the sensor."""
         return self._high_limit
 
+    def validate(self):
+        """Validate the discrete sensor instance."""
+
+        # Validate the sensor instance
+        if not isinstance(self.tag, str):
+            raise BackendError(
+                message=f"The tag name {self.tag} must be a string",
+                context=f"Expected {str}, got {type(self.tag)}"
+            )
+
+        # Validate low limit type
+        if not isinstance(self.low_limit, (float, int)):
+            raise BackendError(
+                message=f"Low limit {self.low_limit} must be a numeric value",
+                context=f"Expected {float}, got {self.low_limit}"
+            )
+
+        # Validate high limit type
+        if not isinstance(self.high_limit, (float, int)):
+            raise BackendError(
+                message=f"High limit {self.high_limit} must be a numeric value",
+                context=f"Expected {float}, got {self.high_limit}"
+            )
+
+        # Validate the order of the limits
+        if self.low_limit > self.high_limit:
+            raise BackendError(
+                message="The low limit must be less than the high limit",
+                context=f"Low limit: {self.low_limit}, High limit: {self.high_limit}"
+            )
+
+        return self
+
 
 class DiscreteSensor(_SensorBase, _SensorAbc):
     """Generates random integer data for discrete sensors.
 
     Example:
+
         # Position sensor (-1: down, 0: stop, 1: up)
-        sensor = DiscreteSensor('ZSS1R01A', low_limit=-1, high_limit=1)
+        sensor1 = DiscreteSensor('ZSS1R01A', low_limit=-1, high_limit=1)
+        sensor1.read()
 
         # Vibration sensor (0: off, 1: on)
-        sensor = DiscreteSensor('VSS1R01A', low_limit=0, high_limit=1)
+        sensor2 = DiscreteSensor('VSS1R01A', low_limit=0, high_limit=1)
+        sensor2.read()
     """
 
     def __init__(self, tag, low_limit=0, high_limit=1):
-        """Initialize the discrete sensor.
 
-        Args:
-            tag (str)                  : The tag name of the sensor.
-            low_limit (int)            : The low limit of the sensor.
-            high_limit (int)           : The high limit of the sensor.
-        """
-
+        # Call the base class constructor
         super(DiscreteSensor, self).__init__(tag, low_limit, high_limit)
+
+        # Validate the sensor instance
+        self.validate()
 
     def read(self):
         """Read the discrete sensor data."""
-        return random.randint(self.low_limit, self.high_limit)
+
+        self._last_value = random.randint(self.low_limit, self.high_limit)
+        return self._last_value
 
 
 class AnalogSensor(_SensorBase, _SensorAbc):
     """Generates random float data for analog sensors.
 
     Example:
+
         # Temperature sensor with a range of 0-100 degrees
-        sensor = AnalogSensor('TIS1P01A', low_limit=0, high_limit=100)
+        sensor1 = AnalogSensor('TIS1P01A', low_limit=0, high_limit=100)
+        sensor1.read()
 
         # Pressure sensor with a range of 0-10 bar
-        sensor = AnalogSensor('PIS1P01A', low_limit=0, high_limit=10)
+        sensor2 = AnalogSensor('PIS1P01A', low_limit=0, high_limit=10)
+        sensor2.read()
     """
 
     def __init__(self, tag, low_limit=0.0, high_limit=100.0):
-        """Initialize the analog sensor.
 
-        Args:
-            tag (str)            : The tag name of the sensor.
-            low_limit  (float)   : The low limit of the sensor.
-            high_limit (float)   : The high limit of the sensor.
-        """
+        # Call the base class constructor
         super(AnalogSensor, self).__init__(tag, low_limit, high_limit)
+
+        # Validate the sensor instance
+        self.validate()
 
     def read(self):
         """Read the analog sensor data."""
-        return random.uniform(self.low_limit, self.high_limit)
+
+        self._last_value = random.uniform(self.low_limit, self.high_limit)
+        return self._last_value
 
 
 __all__ = ['DiscreteSensor', 'AnalogSensor']
@@ -125,8 +189,16 @@ def demo():
 
     # Sample the sensor data
     for _ in range(10):
-        print(position.read())
-        print(temperature.read())
+
+        # Read and print the sensor data
+        position.read()
+        print(position)
+
+        # Read and print the sensor data
+        temperature.read()
+        print(temperature)
+
+        # Wait before the next sample
         time.sleep(1)
 
 if __name__ == '__main__':
