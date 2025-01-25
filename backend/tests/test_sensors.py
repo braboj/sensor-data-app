@@ -58,6 +58,24 @@ class TestDiscreteSensor(unittest.TestCase):
             self.assertTrue(-1 <= value <= 1)
             self.assertTrue(isinstance(value, int))
 
+    def test_validate(self):
+
+        # Test the low limit
+        for test_value in ('A', 1j, [1, 2, 3], {'A': 1}):
+            with self.assertRaises(Exception):
+                DiscreteSensor('AAAA', low_limit=test_value, high_limit=1)
+
+        # # Test the high limit type
+        # self.sensor.low_limit = -1      # noqa
+        # self.sensor.high_limit = 'A'    # noqa
+        # with self.assertRaises(Exception):
+        #     self.sensor.validate()
+        #
+        # # Test the low limit order
+        # self.sensor.high_limit = -2     # noqa
+        # with self.assertRaises(Exception):
+        #     self.sensor.validate()
+
 
 class TestAnalogSensor(unittest.TestCase):
 
@@ -65,7 +83,7 @@ class TestAnalogSensor(unittest.TestCase):
         """Fixture that runs before each test method."""
 
         # Create a default discrete sensor
-        self.sensor = AnalogSensor('TIS1R01A', low_limit=-100, high_limit=100)
+        self.sensor = AnalogSensor('TIS1R01A', low_limit=-100.0, high_limit=100.0)
 
 
     def test_default_init(self):
@@ -74,17 +92,17 @@ class TestAnalogSensor(unittest.TestCase):
         sensor = AnalogSensor('AAAA')
 
         self.assertEqual(sensor.tag, 'AAAA')
-        self.assertEqual(sensor.low_limit, 0)
-        self.assertEqual(sensor.high_limit, 100)
+        self.assertEqual(sensor.low_limit, 0.0)
+        self.assertEqual(sensor.high_limit, 100.0)
 
     def test_custom_init(self):
         """Test the custom initialization of the discrete sensor."""
 
-        sensor = AnalogSensor('BBBB', low_limit=-200, high_limit=200)
+        sensor = AnalogSensor('BBBB', low_limit=-200.0, high_limit=200.0)
 
         self.assertEqual(sensor.tag, 'BBBB')
-        self.assertEqual(sensor.low_limit, -200)
-        self.assertEqual(sensor.high_limit, 200)
+        self.assertEqual(sensor.low_limit, -200.0)
+        self.assertEqual(sensor.high_limit, 200.0)
 
     def test_tag(self):
         """Test the tag property of the discrete sensor."""

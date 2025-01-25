@@ -42,20 +42,34 @@ class FlaskRouteTestCase(unittest.TestCase):
     def test_index_route(self):
         """Test the index route."""
         response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(200, response.status_code)
 
     def test_404_route(self):
         """Test the 404 route."""
         response = self.client.get('/notfound')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(404, response.status_code)
 
     def test_api_sensors_route(self):
-        """Test the sensor route."""
+        """Test the api/sensors route."""
 
-        # Test the GET method
+        # Wait for the first reading to be generated
+        time.sleep(11)
+
+        # Get the first reading
         response = self.client.get('/api/sensors')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(200, response.status_code)
 
-        # Check the default response length
-        data = response.get_json()
-        self.assertIsNotNone(data)
+        # Check the response length
+        sample_01 = response.get_json()
+        self.assertEqual(1, len(sample_01))
+
+        # Wait for another reading to be generated
+        time.sleep(11)
+
+        # Get the next reading
+        response = self.client.get('/api/sensors')
+        self.assertEqual(200, response.status_code)
+
+        # Check the response length
+        sample_02 = response.get_json()
+        self.assertEqual(2, len(sample_02))
