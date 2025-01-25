@@ -1,7 +1,7 @@
 import random
 from abc import abstractmethod, ABC
 
-from backend.app.errors import BackendError
+from .errors import BackendError
 
 
 class _SensorAbc(ABC):
