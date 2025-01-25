@@ -73,3 +73,11 @@ class FlaskRouteTestCase(unittest.TestCase):
         # Check the response length
         sample_02 = response.get_json()
         self.assertEqual(2, len(sample_02))
+
+        # Get a new reading with a limit
+        response = self.client.get('/api/sensors?limit=1')
+        self.assertEqual(200, response.status_code)
+
+        # Check the response length
+        sample_03 = response.get_json()
+        self.assertEqual(1, len(sample_03))
