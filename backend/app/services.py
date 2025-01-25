@@ -5,9 +5,11 @@ import time
 
 
 class SensorService(object):
+    """Service class for handling sensor data."""
 
     @staticmethod
-    def generate_sensor_data(app):
+    def generate_data(app):
+        """Thread to generate sensor data and store it in the database."""
 
         temperature = AnalogSensor('temperature')
         humidity = AnalogSensor('humidity')
@@ -27,7 +29,8 @@ class SensorService(object):
             time.sleep(10)
 
     @staticmethod
-    def get_sensor_data(limit=100):
+    def fetch_data(limit=100):
+        """Get the latest sensor data from the database."""
 
         data = SensorData.query.order_by(
             SensorData.timestamp.desc()

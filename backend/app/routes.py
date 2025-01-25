@@ -24,5 +24,5 @@ def get_all_sensors():
     """
 
     limit = request.args.get('limit', default=100, type=int)
-    data = SensorService.get_sensor_data(limit)
+    data = SensorService.fetch_data(limit)
     return jsonify(data)

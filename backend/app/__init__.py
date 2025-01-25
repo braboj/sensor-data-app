@@ -31,7 +31,7 @@ def create_app():
 
     # Start the sensor data generation thread
     with app.app_context():
-        sensor_thread = threading.Thread(target=SensorService.generate_sensor_data, args=(app,))
+        sensor_thread = threading.Thread(target=SensorService.generate_data, args=(app,))
         sensor_thread.daemon = True
         sensor_thread.start()
 
