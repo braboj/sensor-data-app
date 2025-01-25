@@ -1,22 +1,25 @@
-import os
 import threading
-
 from flask import Flask
 from dotenv import load_dotenv
 from .routes import api, main
 from .database import db
 from .services import SensorService
 
-def create_app():
-
-    # Load environment variables from .env file
-    load_dotenv()
+def create_app(test_config=None):
 
     # Configure the Flask app to use the instance folder for configuration
     app = Flask(__name__, instance_relative_config=True)
 
-    # Load the configuration from the instance folder
-    app.config.from_pyfile('config.py', silent=True)
+    # Load environment variables from .env file
+    load_dotenv()
+
+    # Load the default configuration
+    if test_config is None:
+        app.config.from_pyfile('config.py', silent=True)
+
+    # Load the test configuration
+    else:
+        app.config.from_mapping(test_config)
 
     # Register the routes with the app
     app.register_blueprint(main)
@@ -31,7 +34,10 @@ def create_app():
 
     # Start the sensor data generation thread
     with app.app_context():
-        sensor_thread = threading.Thread(target=SensorService.generate_data, args=(app,))
+        sensor_thread = threading.Thread(
+            target=SensorService.generate_data,
+            args=(app,)
+        )
         sensor_thread.daemon = True
         sensor_thread.start()
 
