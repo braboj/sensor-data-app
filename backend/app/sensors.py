@@ -169,6 +169,10 @@ class AnalogSensor(_SensorBase, _SensorAbc):
         # Validate the sensor instance
         self.validate()
 
+        # Convert the limits to float
+        self._low_limit = float(self.low_limit)
+        self._high_limit = float(self.high_limit)
+
     def read(self):
         """Read the analog sensor data."""
 
