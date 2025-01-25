@@ -140,11 +140,38 @@ class DiscreteSensor(_SensorBase, _SensorAbc):
         # Validate the sensor instance
         self.validate()
 
+        # Convert the limits to integers
+        self._low_limit = int(self.low_limit)
+        self._high_limit = int(self.high_limit)
+
     def read(self):
         """Read the discrete sensor data."""
 
         self._last_value = random.randint(self.low_limit, self.high_limit)
         return self._last_value
+
+    def validate(self):
+        """Validate the discrete sensor instance."""
+
+        # Validate the basic requirements for the sensor
+        super().validate()
+
+        # Validate the specific requirements for the low limits
+        if not isinstance(self.low_limit, int):
+            raise BackendError(
+                message=f"Low limit {self.low_limit} must be an integer value",
+                context=f"Expected {int}, got {self.low_limit}"
+            )
+
+        # Validate the specific requirements for the high limits
+        if not isinstance(self.high_limit, int):
+            raise BackendError(
+                message=f"High limit {self.high_limit} must be an integer value",
+                context=f"Expected {int}, got {self.high_limit}"
+            )
+
+        # Return the validated sensor instance
+        return self
 
 
 class AnalogSensor(_SensorBase, _SensorAbc):
@@ -179,6 +206,27 @@ class AnalogSensor(_SensorBase, _SensorAbc):
         self._last_value = random.uniform(self.low_limit, self.high_limit)
         return self._last_value
 
+    def validate(self):
+
+        # Validate the basic requirements for the sensor
+        super().validate()
+
+        # Validate the specific requirements for the low limits
+        if not isinstance(self.low_limit, float):
+            raise BackendError(
+                message=f"Low limit {self.low_limit} must be a float value",
+                context=f"Expected {float}, got {self.low_limit}"
+            )
+
+        # Validate the specific requirements for the high limits
+        if not isinstance(self.high_limit, float):
+            raise BackendError(
+                message=f"High limit {self.high_limit} must be a float value",
+                context=f"Expected {float}, got {self.high_limit}"
+            )
+
+        # Return the validated sensor instance
+        return self
 
 __all__ = ['DiscreteSensor', 'AnalogSensor']
 
@@ -189,7 +237,7 @@ def demo():
 
     # Create the sensor objects
     position = DiscreteSensor('ZSS1R01A', low_limit=-1, high_limit=1)
-    temperature = AnalogSensor('TIS1P01A', low_limit=0, high_limit=100)
+    temperature = AnalogSensor('TIS1P01A', low_limit=0.0, high_limit=100.0)
 
     # Sample the sensor data
     for _ in range(10):
