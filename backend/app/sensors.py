@@ -60,22 +60,23 @@ class _SensorBase(object):
 
 
 class DiscreteSensor(_SensorBase, _SensorAbc):
-    """Discete sensors to generate random binary data."""
+    """Generates random integer data for discrete sensors.
+
+    Example:
+        # Position sensor (-1: down, 0: stop, 1: up)
+        sensor = DiscreteSensor('ZSS1R01A', low_limit=-1, high_limit=1)
+
+        # Vibration sensor (0: off, 1: on)
+        sensor = DiscreteSensor('VSS1R01A', low_limit=0, high_limit=1)
+    """
 
     def __init__(self, tag, low_limit=0, high_limit=1):
-        """Initialize the discrete sensor with a tag name.
+        """Initialize the discrete sensor.
 
         Args:
             tag (str)                  : The tag name of the sensor.
             low_limit (int)            : The low limit of the sensor.
             high_limit (int)           : The high limit of the sensor.
-
-        Example:
-            # Position sensor with 3 states (-1: left, 0: center, 1: right)
-            sensor = DiscreteSensor('ZSS1R01A', low_limit=-1, high_limit=1)
-
-            # Vibration sensor with 2 states (0: off, 1: on)
-            sensor = DiscreteSensor('VSS1R01A', low_limit=0, high_limit=1)
         """
 
         super(DiscreteSensor, self).__init__(tag, low_limit, high_limit)
@@ -86,12 +87,7 @@ class DiscreteSensor(_SensorBase, _SensorAbc):
 
 
 class AnalogSensor(_SensorBase, _SensorAbc):
-    """Analog sensors to generate random float data.
-
-    Args:
-        tag (str)                  : The tag name of the sensor.
-        low_limit (float)          : The low limit of the sensor.
-        high_limit (float)         : The high limit of the sensor.
+    """Generates random float data for analog sensors.
 
     Example:
         # Temperature sensor with a range of 0-100 degrees
@@ -102,7 +98,7 @@ class AnalogSensor(_SensorBase, _SensorAbc):
     """
 
     def __init__(self, tag, low_limit=0.0, high_limit=100.0):
-        """Initialize the analog sensor with a tag name.
+        """Initialize the analog sensor.
 
         Args:
             tag (str)            : The tag name of the sensor.
