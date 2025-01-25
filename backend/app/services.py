@@ -16,6 +16,9 @@ class SensorService(object):
         vibration = DiscreteSensor('vibration')
 
         while True:
+
+            time.sleep(10)
+
             sensor_data = SensorData(
                 temperature=temperature.read(),
                 humidity=humidity.read(),
@@ -25,8 +28,6 @@ class SensorService(object):
             with app.app_context():
                 db.session.add(sensor_data)
                 db.session.commit()
-
-            time.sleep(10)
 
     @staticmethod
     def fetch_data(limit=100):
