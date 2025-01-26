@@ -14,12 +14,11 @@ import {HousingLocation} from '../housinglocation'
       </form>
     </section>
     <section class="results">
-      <app-housing-location>[housingLocation]="housingLocation"></app-housing-location>
+      <app-housing-location [housingLocation]="housingLocation"></app-housing-location>
     </section>
   `,
   styleUrls: ['./home.component.css'],
 })
-
 export class HomeComponent {
   readonly baseUrl = 'https://angular.dev/assets/images/tutorials/common';
   housingLocation: HousingLocation = {
