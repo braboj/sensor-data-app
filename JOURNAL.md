@@ -30,6 +30,7 @@
 - V0.0.3.0 - Grafana integration and charting
 - V0.0.4.0 - Add websockets to deliver real-time data
 - V0.0.5.0 - Add optional features as requested in the documentation
+- V0.0.6.0 - Add CI/CD pipeline with GitHub Actions
 
 ## Backend
 
@@ -67,7 +68,7 @@ two services: the Flask app and the Postgres database.
 
 - Websockets for real-time data production
 
-**Time journal:**
+**Time table:**
 
 | Time | Task                                                  |
 |------|-------------------------------------------------------|
@@ -78,6 +79,11 @@ two services: the Flask app and the Postgres database.
 | 1h   | Add configuration using the instance folder and tests |
 | 2h   | Review and research websockets                        |
 | 0.5h | Tag V0.0.1.0 and documentation                        |
+
+**Links:**
+- https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html#summary
+- https://flask.palletsprojects.com/en/stable/
+
 
 ## Frontend
 
@@ -105,14 +111,39 @@ The following steps will be taken to implement the frontend:
 3. Follow the tutorial to create a simple Angular app
 4. Implement a simple frontend app to poll the REST API
 5. Dockerize the Angular app and update the docker-compose file
-6. Add the Grafana service to the docker-compose file
-7. Integrate Grafana with the Angular app
-8. Add a websockets service for real-time data consumption
-9. Polish the frontend and add optional features
+6. Integrate Grafana with the Angular app
+7. Add a websockets service for real-time data consumption
+8. Polish the frontend and add optional features
+9. Add tests for the frontend app
+10. Add CI/CD pipeline with GitHub Actions
+
+**MVP features:**
+
+- Dockerized Angular app
+- Simple frontend app to poll the backend
+
+**Extended features:**
+- Grafana integration
+- Websockets for real-time data consumption
+- Optional features as requested in the documentation
+
+**Timetable:**
+
+| Time | Task                                                    |
+|------|---------------------------------------------------------|
+| 0.5h | 1) Install node.js and Angular CLI                      |
+| 0.5h | 2) Install WebStorm and create a new Angular project    |
+| 4h   | 3) Follow the tutorial to create a simple Angular app   |
+| 1h   | 4) Implement a simple frontend app to poll the REST API |
+| 0.5h | 5) Dockerize the Angular app and update the docker file |
+| 0.5h | Documentation and Cleanup before tag V0.0.2.0           |
+
 
 **Links:**
 - https://angular.dev/tutorials/first-app
 - https://blog.bouzekri.net/2017-11-03-debug-angular-app-in-webstorm.html
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+- https://en.wikipedia.org/wiki/Bazel_(software)
 
 
 ## CI/CD
