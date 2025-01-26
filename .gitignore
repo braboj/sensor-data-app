@@ -169,3 +169,43 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+# Ignore files for both Angular
+
+# Node.js (Angular/TypeScript)
+node_modules/
+.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Compiled TypeScript
+*.tsbuildinfo
+
+# Angular environment files
+src/environments/environment.*.ts
+
+# Logs
+logs/
+debug.log
+*.trace
+
+# Flask-specific
+*.sqlite3
+*.db
+
+# Common files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.bak
+*.tmp
+*.old
+
+# Environment variables
+.env.*
