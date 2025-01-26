@@ -78,7 +78,7 @@ two services: the Flask app and the Postgres database.
 | 1h   | Add the database integration with Postgres and tests  |
 | 1h   | Add configuration using the instance folder and tests |
 | 2h   | Review and research websockets                        |
-| 0.5h | Tag V0.0.1.0 and documentation                        |
+| 0.5h | Documentation and cleanup before Tag V0.0.1.0         |
 
 **Links:**
 - https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html#summary
