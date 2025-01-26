@@ -13,9 +13,6 @@ RUN npm install -g @angular/cli
 # Install the dependencies
 RUN npm install
 
-# Copy the rest of the application code to the working directory
-COPY . .
-
 # Expose the port that the application will run on
 EXPOSE 4200
 
