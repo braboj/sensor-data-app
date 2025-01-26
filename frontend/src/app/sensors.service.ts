@@ -6,6 +6,13 @@ import {SensorData} from './sensordata';
 })
 
 export class SensorService {
+  /**
+   * Fetches all sensor data from the API.
+   *
+   * @returns A promise that resolves to an array of SensorData objects.
+   */
+
+  // The URL of the sensor data API */
   readonly url = 'http://localhost:5000/api/sensors';
 
   async getAllSensorData(): Promise<SensorData[]> {
