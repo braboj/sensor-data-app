@@ -81,3 +81,8 @@ class FlaskRouteTestCase(unittest.TestCase):
         # Check the response length
         sample_03 = response.get_json()
         self.assertEqual(1, len(sample_03))
+
+        # Test the limit query parameter
+        for test_val in (-1, 101):
+            response = self.client.get(f'/api/sensors?limit={test_val}')
+            self.assertEqual(400, response.status_code)
