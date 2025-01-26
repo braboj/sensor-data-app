@@ -1,13 +1,15 @@
+# encoding: utf-8
 from flask import Blueprint, jsonify, request, abort
 from markupsafe import escape
 from .services import SensorService
 
+# Define the blueprints for the index and API
 main = Blueprint('main', __name__)
 api = Blueprint('api', __name__, url_prefix='/api')
 
 @main.route('/')
 def home():
-    """Render the home page.
+    """Route to the home page.
 
     Example:
         http://localhost:5000/
@@ -17,7 +19,7 @@ def home():
 
 @api.route('/sensors', methods=['GET'])
 def get_all_sensors():
-    """Fetch the latest sensor data.
+    """Route to get all sensor data with optional limit query parameter.
 
     Example:
         http://localhost:5000/api/sensors?limit=10
@@ -32,5 +34,8 @@ def get_all_sensors():
         # Send a 400 Bad Request response
         abort(400, description=f"The value of 'limit' must be between 1 and 100")
 
+    # Fetch the sensor data from the database
     data = SensorService.fetch_data(limit)
+
+    # Return the sensor data as JSON
     return jsonify(data)

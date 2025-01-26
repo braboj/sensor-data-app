@@ -53,7 +53,7 @@ class _SensorAbc(ABC):
 
 
 class _SensorBase(object):
-    """Base class for field sensors handling."""
+    """Base class for all sensors types."""
 
     def __init__(self, tag, low_limit, high_limit):
         """Initialize the sensor with a tag name."""
@@ -232,6 +232,7 @@ __all__ = ['DiscreteSensor', 'AnalogSensor']
 
 
 def demo():
+    """Demo script to show how to use the sensor classes."""
 
     import time
 

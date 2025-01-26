@@ -1,7 +1,13 @@
+# encoding: utf-8
 from .database import db
 
 class SensorData(db.Model):
-    """Basic sensor data model with temperature, humidity, and vibration."""
+    """Basic sensor data model with temperature, humidity, and vibration.
+
+    The model is deliberately kept simple for demonstration purposes. In a real
+    application, the model would likely include additional fields, such as
+    sensor ID, location, and metadata.
+    """
 
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
