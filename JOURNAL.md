@@ -100,11 +100,28 @@ offers a REST API that can be used to create dashboards, panels, and queries.
 
 The following steps will be taken to implement the frontend:
 
-1. Create a simple Angular app with Docker (test Dockerfile)
-2. Implement the polling service to the REST API of the backend
-3. Integrate Grafana and create a simple dashboard with a panel
-4. Add a websockets service for real-time data consumption
-5. Polish the frontend and add optional features
+1. Install node.js and Angular CLI
+2. Install WebStorm and create a new Angular project
+3. Follow the tutorial to create a simple Angular app
+4. Implement a simple frontend app to poll the REST API
+5. Dockerize the Angular app and update the docker-compose file
+6. Add the Grafana service to the docker-compose file
+7. Integrate Grafana with the Angular app
+8. Add a websockets service for real-time data consumption
+9. Polish the frontend and add optional features
+
+**Links:**
+- https://angular.dev/tutorials/first-app
+- https://blog.bouzekri.net/2017-11-03-debug-angular-app-in-webstorm.html
 
 
+## CI/CD
+
+The CI/CD pipeline will be implemented using GitHub Actions. The pipeline will
+consist of the following steps:
+
+1. Linting and code quality checks
+2. Unit tests for the backend and frontend
+3. Build the Docker images
+4. Push the Docker images to the Docker Hub
 
