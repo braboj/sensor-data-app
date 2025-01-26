@@ -1,10 +1,15 @@
 # Introduction
 
-This project is designed to showcase a full-stack project that simulates
-sensor readings from an industrial plant, stores them in a database and offers
-a front-end to visualize the sensor readings.
+This project demonstrates a full-stack application simulating sensor 
+readings from an industrial plant, with a Python backend generating data, 
+storing it in PostgreSQL, and exposing it via an API. 
 
-## Installation
+The Angular frontend visualizes the data in real-time, enabling users to 
+customize dashboards using frameworks like Grafana. Seamless integration, 
+testing, and deployment are ensured through Docker, with optional features 
+like user authentication and dashboard persistence.
+
+## Quick Setup
 
 To get started, you will need to install Docker. You can find the installation
 instructions on this page:
