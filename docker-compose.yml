@@ -1,4 +1,5 @@
 services:
+
   backend:
     build:
       context: ./backend
@@ -8,6 +9,16 @@ services:
       - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/sensordb
     depends_on:
       - db
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "4200:4200"
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:5000
+    depends_on:
+      - backend
 
   db:
     image: postgres:13
@@ -20,5 +31,22 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: always
+
 volumes:
+
   postgres_data:
+    driver: local
+
+  grafana-data:
+    driver: local

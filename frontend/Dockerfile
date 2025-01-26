@@ -4,13 +4,13 @@ FROM node:alpine
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files to the working directory
-COPY package*.json ./
+# Copy all the files from the frontend directory to the working directory
+COPY . .
 
 # Install angular-cli globally
 RUN npm install -g @angular/cli
 
-// Install the dependencies
+# Install the dependencies
 RUN npm install
 
 # Copy the rest of the application code to the working directory
