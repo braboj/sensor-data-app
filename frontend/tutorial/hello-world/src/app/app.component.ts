@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {HomeComponent} from './home/home.component';
 import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
@@ -20,5 +19,4 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'homes';
 }
