@@ -5,10 +5,10 @@ readings from an industrial plant, with a Python backend generating data,
 storing it in a database, and exposing it via an API. A frontend application
 will display the data and allow users to interact with it.
 
-## Pre-requisites
+## Requirements
 
-To install and run the application, you will need the following software 
-installed:
+To install and run the application, the following software must be installed
+on your system:
 
 - [Docker](https://docs.docker.com/engine/install/)
 - [git](https://git-scm.com/downloads)
