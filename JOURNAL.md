@@ -121,14 +121,15 @@ offers a REST API that can be used for configuration and charting.
 
 **Timetable**
 
-| Time | Task                                                    |
-|------|---------------------------------------------------------|
-| 0.5h | 1) Install node.js and Angular CLI                      |
-| 0.5h | 2) Install WebStorm and create a new Angular project    |
-| 4h   | 3) Follow the tutorial to create a simple Angular app   |
-| 1h   | 4) Implement a simple frontend app to poll the REST API |
-| 0.5h | 5) Dockerize the Angular app and update the docker file |
-| 0.5h | Documentation and Cleanup before tag V0.0.2.0           |
+| Time | Task                                                      |
+|------|-----------------------------------------------------------|
+| 0.5h | 1) Install node.js and Angular CLI                        |
+| 0.5h | 2) Install WebStorm and create a new Angular project      |
+| 4h   | 3) Follow the tutorial to create a simple Angular app     |
+| 1h   | 4) Implement a simple frontend app to poll the REST API   |
+| 0.5h | 5) Dockerize the Angular app and update the docker file   |
+| 1.5h | Solve problem with db service and backend synchronization |
+| 0.5h | Documentation and Cleanup before tag V0.0.2.0             |
 
 
 **Links**
