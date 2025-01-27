@@ -8,7 +8,8 @@ services:
     environment:
       - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/sensordb
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   frontend:
     build:
@@ -30,23 +31,13 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
-#  grafana:
-#    image: grafana/grafana:latest
-#    container_name: grafana
-#    ports:
-#      - "3000:3000"
-#    environment:
-#      - GF_SECURITY_ADMIN_USER=admin
-#      - GF_SECURITY_ADMIN_PASSWORD=admin
-#    volumes:
-#      - grafana-data:/var/lib/grafana
-#    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "sensordb"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
 
 volumes:
-
   postgres_data:
-    driver: local
-
-  grafana-data:
     driver: local
