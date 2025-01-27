@@ -1,6 +1,5 @@
 import threading
 from flask import Flask
-from dotenv import load_dotenv
 from .routes import api, main
 from .database import db
 from .services import SensorService
@@ -9,9 +8,6 @@ def create_app(test_config=None):
 
     # Configure the Flask app to use the instance folder for configuration
     app = Flask(__name__, instance_relative_config=True)
-
-    # Load environment variables from .env file
-    load_dotenv()
 
     # Load the default configuration
     if test_config is None:
