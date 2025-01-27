@@ -15,14 +15,15 @@ installed:
 
 ## Quick Setup
 
-Create a new directory and navigate to it. Clone the repository using the
-following command:
+Clone the repository using the following command (replace `<project-name>` 
+with the name of your project):
 
 ```bash
-git clone https://github.com/braboj/sensor-data-app
+git clone https://github.com/braboj/sensor-data-app <project-name>
 ```
 
-Run the following command to build and start the application:
+Navigate to the project folder and run the following command to start 
+the application:
 
 ```bash
 docker compose up
@@ -32,13 +33,19 @@ The following services will be started:
 
 - [Frontend (Angular) / localhost:4200](http://localhost:4200)
 - [Backend (Flask) / localhsot:5000](http://localhost:5000)
-- [Grafana / localhost:3000](http://localhost:3000)
 
-To access the Grafana dashboard, use the following credentials:
+The backend offers one endpoint to retrieve sensor data:
 
-- Username: admin
-- Password: admin
+```bash
+curl http://localhost:5000/api/sensors
+```
 
+By default, the last 100 records are returned. You can specify the number of
+records to return by passing a query parameter:
+
+```bash
+curl http://localhost:5000/api/sensors?limit=1
+```
 ## Next Steps
 - To leave feedback, please visit [Discussions](https://github.com/braboj/the-great-wall/discussions)
 - To contribute, please visit [Contributing](https://github.com/braboj/sensor-data-app/blob/main/CONTRIBUTING.md)
