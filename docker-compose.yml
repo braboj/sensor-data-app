@@ -1,16 +1,5 @@
 services:
 
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: sensordb
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   backend:
     build:
       context: ./backend
@@ -30,6 +19,17 @@ services:
       - REACT_APP_BACKEND_URL=http://localhost:5000
     depends_on:
       - backend
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sensordb
+    ports:
+      - "5001:5001"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   grafana:
     image: grafana/grafana:latest
