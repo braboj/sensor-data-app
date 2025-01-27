@@ -18,7 +18,7 @@ import {SensorData} from "../sensordata";
   template: `
     <section class="results">
       
-      <h2>Latest Sensor Data</h2>
+      <h2>Latest Sensor Data (Hit F5 to refresh, new data every 10 seconds)</h2>
       
       <table>
         
