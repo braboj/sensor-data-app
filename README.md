@@ -22,6 +22,12 @@ with the name of your project):
 git clone https://github.com/braboj/sensor-data-app <project-name>
 ```
 
+For a specific branch, use the following command:
+
+```bash
+git clone -b <branch-name> https://github.com/braboj/sensor-data-app <project-name>
+```
+
 Navigate to the project folder and run the following command to start 
 the application:
 
@@ -47,5 +53,7 @@ records to return by passing a query parameter:
 curl http://localhost:5000/api/sensors?limit=1
 ```
 ## Next Steps
+- To learn more about the project, please visit [Assigment](ASSIGNMENT.md)
+- To read about the solution, please visit [Solution](SOLUTION)
+- To contribute, please visit [Contributing](CONTRIBUTING.md)
 - To leave feedback, please visit [Discussions](https://github.com/braboj/the-great-wall/discussions)
-- To contribute, please visit [Contributing](https://github.com/braboj/sensor-data-app/blob/main/CONTRIBUTING.md)
